@@ -4,11 +4,11 @@
 	xsi:schemaLocation="https://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
 	<modelVersion>4.0.0</modelVersion>
 	<parent>
-		<groupId>App</groupId>
+		<groupId>crm</groupId>
 		<artifactId>Crm</artifactId>
 		<version>0.0.1-SNAPSHOT</version>
 	</parent>
-	<groupId>Crm</groupId>
+	<groupId>crm</groupId>
 	<artifactId>model-module</artifactId>
 	<name>model-module</name>
 	<description>Demo project for Spring Boot</description>
@@ -26,6 +26,17 @@
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-test</artifactId>
 			<scope>test</scope>
+		</dependency>
+
+		<dependency>
+			<groupId>org.postgresql</groupId>
+			<artifactId>postgresql</artifactId>
+			<scope>runtime</scope>
+		</dependency>
+
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-data-jpa</artifactId>
 		</dependency>
 	</dependencies>
 
