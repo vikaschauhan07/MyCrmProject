@@ -1,0 +1,1186 @@
+CREATE TABLE StorefrontAccessToken (
+    id INT,
+    access_token VARCHAR(255),
+    access_scope VARCHAR(255),
+    created_at DATETIME,
+    title VARCHAR(255)
+);
+
+
+CREATE TABLE storefrontAccessToken (
+    id INT,
+    access_token VARCHAR(255),
+    access_scope VARCHAR(255),
+    created_at DATETIME,
+    admin_graphql_api_id VARCHAR(255),
+    title VARCHAR(255)
+);
+
+
+CREATE TABLE report (
+    id INT,
+    name VARCHAR(255),
+    shopify_ql TEXT,
+    updated_at DATETIME,
+    category VARCHAR(255)
+);
+
+CREATE TABLE ApplicationCharges (
+    id INT,
+    name VARCHAR(255),
+    api_client_id INT,
+    price DECIMAL(10, 2),
+    status VARCHAR(255),
+    return_url VARCHAR(255),
+    test BOOLEAN,
+    external_id INT,
+    created_at DATETIME,
+    updated_at DATETIME,
+    currency VARCHAR(3),
+    charge_type VARCHAR(255),
+    decorated_return_url VARCHAR(255)
+);
+
+CREATE TABLE ApplicationCredits (
+    id INT,
+    amount DECIMAL(10, 2),
+    description VARCHAR(255),
+    test BOOLEAN,
+    currency VARCHAR(3)
+);
+
+
+CREATE TABLE RecurringApplicationCharge (
+    id INT,
+    name VARCHAR(255),
+    price DECIMAL(10, 2),
+    billing_on DATE,
+    status VARCHAR(255),
+    created_at DATETIME,
+    updated_at DATETIME,
+    activated_on DATE,
+    return_url VARCHAR(255),
+    test BOOLEAN,
+    cancelled_on DATE,
+    trial_days INT,
+    trial_ends_on DATE,
+    api_client_id INT,
+    decorated_return_url VARCHAR(255),
+    confirmation_url VARCHAR(255),
+    currency VARCHAR(3)
+);
+
+
+CREATE TABLE UsageCharge (
+    id INT,
+    description VARCHAR(255),
+    price DECIMAL(10, 2),
+    created_at DATETIME,
+    currency VARCHAR(3),
+    balance_used INT,
+    balance_remaining INT,
+    risk_level INT
+);
+
+CREATE TABLE Customers (
+    id INT,
+    email VARCHAR(255),
+    accepts_marketing BOOLEAN,
+    created_at DATETIME,
+    updated_at DATETIME,
+    first_name VARCHAR(255),
+    last_name VARCHAR(255),
+    orders_count INT,
+    state VARCHAR(255),
+    total_spent DECIMAL(10, 2),
+    last_order_id INT,
+    note TEXT,
+    verified_email BOOLEAN,
+    multipass_identifier VARCHAR(255),
+    tax_exempt BOOLEAN,
+    tags VARCHAR(255),
+    last_order_name VARCHAR(255),
+    currency VARCHAR(3),
+    phone VARCHAR(20),
+    accepts_marketing_updated_at DATETIME,
+    marketing_opt_in_level VARCHAR(255),
+    email_marketing_consent_state VARCHAR(255),
+    email_marketing_opt_in_level VARCHAR(255),
+    email_marketing_consent_updated_at DATETIME,
+    sms_marketing_consent_state VARCHAR(255),
+    sms_marketing_opt_in_level VARCHAR(255),
+    sms_marketing_consent_updated_at DATETIME,
+    sms_marketing_consent_collected_from VARCHAR(255),
+    admin_graphql_api_id VARCHAR(255)
+);
+
+CREATE TABLE CustomerAddresses (
+    id INT,
+    customer_id INT,
+    first_name VARCHAR(255),
+    last_name VARCHAR(255),
+    company VARCHAR(255),
+    address1 VARCHAR(255),
+    address2 VARCHAR(255),
+    city VARCHAR(255),
+    province VARCHAR(255),
+    country VARCHAR(255),
+    zip VARCHAR(20),
+    phone VARCHAR(20),
+    name VARCHAR(255),
+    province_code VARCHAR(10),
+    country_code VARCHAR(10),
+    country_name VARCHAR(255),
+    is_default BOOLEAN
+);
+
+CREATE TABLE DiscountCodes (
+    id INT,
+    price_rule_id INT,
+    code VARCHAR(255),
+    usage_count INT,
+    created_at DATETIME,
+    updated_at DATETIME
+);
+
+CREATE TABLE PriceRules (
+    id INT,
+    value_type VARCHAR(255),
+    value DECIMAL(10, 2),
+    customer_selection VARCHAR(255),
+    target_type VARCHAR(255),
+    target_selection VARCHAR(255),
+    allocation_method VARCHAR(255),
+    allocation_limit INT,
+    once_per_customer BOOLEAN,
+    usage_limit INT,
+    starts_at DATETIME,
+    ends_at DATETIME,
+    created_at DATETIME,
+    updated_at DATETIME,
+    title VARCHAR(255),
+    admin_graphql_api_id VARCHAR(255)
+);
+
+CREATE TABLE Events (
+    id INT,
+    subject_id INT,
+    created_at DATETIME,
+    subject_type VARCHAR(255),
+    verb VARCHAR(255),
+    arguments JSON, -- Assuming your database supports JSON data type
+    body TEXT,
+    message TEXT,
+    author VARCHAR(255),
+    description TEXT,
+    path VARCHAR(255)
+);
+
+
+CREATE TABLE Webhooks (
+    id INT,
+    address VARCHAR(255),
+    topic VARCHAR(255),
+    created_at DATETIME,
+    updated_at DATETIME,
+    format VARCHAR(255),
+    api_version VARCHAR(255),
+    PRIMARY KEY (id)
+);
+
+CREATE TABLE GiftCards (
+    id INT,
+    balance DECIMAL(10, 2),
+    created_at DATETIME,
+    updated_at DATETIME,
+    currency VARCHAR(10),
+    initial_value DECIMAL(10, 2),
+    disabled_at DATETIME,
+    line_item_id INT,
+    api_client_id INT,
+    user_id INT,
+    customer_id INT,
+    note TEXT,
+    expires_on DATE,
+    template_suffix VARCHAR(255),
+    recipient_id INT,
+    message TEXT,
+    send_on DATETIME,
+    notify BOOLEAN,
+    last_characters VARCHAR(10),
+    order_id INT,
+    PRIMARY KEY (id),
+    CONSTRAINT fk_order_id FOREIGN KEY (order_id) REFERENCES Orders(id)
+);
+
+CREATE TABLE inventory_items (
+    id INT PRIMARY KEY,
+    sku VARCHAR(255) NOT NULL,
+    created_at TIMESTAMP,
+    updated_at TIMESTAMP,
+    requires_shipping BOOLEAN,
+    cost DECIMAL(10, 2),
+    country_code_of_origin VARCHAR(255),
+    province_code_of_origin VARCHAR(255),
+    harmonized_system_code VARCHAR(255),
+    tracked BOOLEAN,
+    admin_graphql_api_id VARCHAR(255)
+);
+
+
+CREATE TABLE inventory_locations (
+    id INT PRIMARY KEY,
+    name VARCHAR(255),
+    address1 VARCHAR(255),
+    address2 VARCHAR(255),
+    city VARCHAR(255),
+    zip VARCHAR(20),
+    province VARCHAR(255),
+    country VARCHAR(10),
+    phone VARCHAR(20),
+    created_at TIMESTAMP,
+    updated_at TIMESTAMP,
+    country_code VARCHAR(10),
+    country_name VARCHAR(255),
+    province_code VARCHAR(10),
+    legacy BOOLEAN,
+    active BOOLEAN,
+    admin_graphql_api_id VARCHAR(255),
+    localized_country_name VARCHAR(255),
+    localized_province_name VARCHAR(255)
+);
+
+CREATE TABLE inventory_levels (
+    id INT PRIMARY KEY,
+    inventory_item_id INT,
+    location_id INT,
+    available INT,
+    updated_at TIMESTAMP,
+    admin_graphql_api_id VARCHAR(255),
+    FOREIGN KEY (inventory_item_id) REFERENCES inventory_items(id),
+    FOREIGN KEY (location_id) REFERENCES locations(id)
+);
+
+CREATE TABLE marketing_events (
+    id INT PRIMARY KEY,
+    event_type VARCHAR(255),
+    remote_id VARCHAR(255),
+    started_at TIMESTAMP,
+    ended_at TIMESTAMP,
+    scheduled_to_end_at TIMESTAMP,
+    budget DECIMAL(10, 2),
+    currency VARCHAR(3),
+    manage_url VARCHAR(255),
+    preview_url VARCHAR(255),
+    utm_campaign VARCHAR(255),
+    utm_source VARCHAR(255),
+    utm_medium VARCHAR(255),
+    budget_type VARCHAR(255),
+    description TEXT,
+    marketing_channel VARCHAR(255),
+    paid BOOLEAN,
+    referring_domain VARCHAR(255),
+    breadcrumb_id INT,
+    marketing_activity_id INT,
+    admin_graphql_api_id VARCHAR(255),
+    created_at TIMESTAMP,
+    updated_at TIMESTAMP,
+    market_resources_id INT,
+    FOREIGN KEY (market_resources_id) REFERENCES marketed_resources(id)
+);
+
+CREATE TABLE metafields (
+    id INT PRIMARY KEY,
+    namespace VARCHAR(255),
+    key VARCHAR(255),
+    value TEXT,
+    description TEXT,
+    owner_id INT,
+    created_at TIMESTAMP,
+    updated_at TIMESTAMP,
+    owner_resource VARCHAR(255),
+    type VARCHAR(255),
+    admin_graphql_api_id VARCHAR(255)
+);
+
+
+CREATE TABLE blogs (
+    id INT PRIMARY KEY,
+    handle VARCHAR(255) NOT NULL,
+    title VARCHAR(255) NOT NULL,
+    updated_at TIMESTAMP,
+    commentable VARCHAR(3),
+    feedburner VARCHAR(255),
+    feedburner_location VARCHAR(255),
+    created_at TIMESTAMP,
+    template_suffix VARCHAR(255),
+    tags VARCHAR(255),
+    admin_graphql_api_id VARCHAR(255)
+);
+
+
+CREATE TABLE articles (
+    id INT PRIMARY KEY,
+    title VARCHAR(255),
+    created_at TIMESTAMP,
+    body_html TEXT,
+    blog_id INT,
+    author VARCHAR(255),
+    user_id INT,
+    published_at TIMESTAMP,
+    updated_at TIMESTAMP,
+    summary_html TEXT,
+    template_suffix VARCHAR(255),
+    handle VARCHAR(255),
+    tags VARCHAR(255),
+    admin_graphql_api_id VARCHAR(255),
+    CONSTRAINT fk_blog
+        FOREIGN KEY (blog_id) REFERENCES blogs(id),
+    CONSTRAINT fk_user
+        FOREIGN KEY (user_id) REFERENCES users(id)
+);
+
+CREATE TABLE images (
+    id INT PRIMARY KEY,
+    article_id INT,
+    created_at TIMESTAMP,
+    alt VARCHAR(255),
+    width INT,
+    height INT,
+    src VARCHAR(255),
+    CONSTRAINT fk_article
+        FOREIGN KEY (article_id) REFERENCES articles(id)
+);
+
+
+CREATE TABLE assets (
+    id INT PRIMARY KEY AUTO_INCREMENT,
+    `key` VARCHAR(255) NOT NULL,
+    public_url VARCHAR(255),
+    created_at TIMESTAMP,
+    updated_at TIMESTAMP,
+    content_type VARCHAR(255),
+    size INT,
+    checksum VARCHAR(255),
+    theme_id INT,
+    CONSTRAINT fk_theme
+        FOREIGN KEY (theme_id) REFERENCES themes(id)
+);
+
+
+CREATE TABLE comments (
+    id INT PRIMARY KEY,
+    body TEXT NOT NULL,
+    body_html TEXT,
+    author VARCHAR(255) NOT NULL,
+    email VARCHAR(255),
+    status VARCHAR(20),
+    article_id INT,
+    blog_id INT,
+    created_at TIMESTAMP,
+    updated_at TIMESTAMP,
+    ip VARCHAR(15),
+    user_agent TEXT,
+    published_at TIMESTAMP,
+    FOREIGN KEY (article_id) REFERENCES articles(id),
+    FOREIGN KEY (blog_id) REFERENCES blogs(id)
+);
+
+
+CREATE TABLE pages (
+    id INT PRIMARY KEY,
+    title VARCHAR(255) NOT NULL,
+    shop_id INT,
+    handle VARCHAR(255),
+    body_html TEXT,
+    author VARCHAR(255),
+    created_at TIMESTAMP,
+    updated_at TIMESTAMP,
+    published_at TIMESTAMP,
+    template_suffix VARCHAR(255),
+    admin_graphql_api_id VARCHAR(255)
+);
+
+
+CREATE TABLE redirects (
+    id INT PRIMARY KEY,
+    path VARCHAR(255) NOT NULL,
+    target VARCHAR(255) NOT NULL
+);
+
+
+CREATE TABLE script_tags (
+    id INT PRIMARY KEY,
+    src VARCHAR(255) NOT NULL,
+    event VARCHAR(50) NOT NULL,
+    created_at TIMESTAMP,
+    updated_at TIMESTAMP,
+    display_scope VARCHAR(50) NOT NULL,
+    cache BOOLEAN NOT NULL
+);
+
+
+CREATE TABLE themes (
+    id INT PRIMARY KEY,
+    name VARCHAR(255) NOT NULL,
+    created_at TIMESTAMP,
+    updated_at TIMESTAMP,
+    role VARCHAR(50) NOT NULL,
+    theme_store_id INT,
+    previewable BOOLEAN NOT NULL,
+    processing BOOLEAN NOT NULL,
+    admin_graphql_api_id VARCHAR(255) NOT NULL
+);
+
+CREATE TABLE checkout (
+    id SERIAL PRIMARY KEY,
+    customer_id INT REFERENCES customer(id),
+    line_item_id INT REFERENCES line_item(id),
+    token VARCHAR(255),
+    cart_token VARCHAR(255),
+    created_at TIMESTAMP,
+    updated_at TIMESTAMP,
+    note_attributes JSONB,
+    shipping_lines JSONB,
+    total_weight INT,
+    currency VARCHAR(3),
+    line_items JSONB,
+    discount_codes JSONB,
+    tax_lines JSONB,
+    total_discounts DECIMAL(10, 2),
+    total_line_items_price DECIMAL(10, 2),
+    total_price DECIMAL(10, 2),
+    total_tax DECIMAL(10, 2),
+    subtotal_price DECIMAL(10, 2),
+    billing_address JSONB,
+    shipping_address JSONB
+);
+
+
+CREATE TABLE draft_order (
+    id INT PRIMARY KEY,
+    customer_id INT REFERENCES customer(id),
+    shipping_method_id INT REFERENCES shipping_method(id),
+    note VARCHAR(255),
+    email VARCHAR(255),
+    taxes_included BOOLEAN,
+    currency VARCHAR(3),
+    invoice_sent_at TIMESTAMP,
+    created_at TIMESTAMP,
+    updated_at TIMESTAMP,
+    tax_exempt BOOLEAN,
+    completed_at TIMESTAMP,
+    name VARCHAR(255),
+    status VARCHAR(255),
+    invoice_url VARCHAR(255),
+    order_id INT,  -- Assuming this is a foreign key to an 'order' table
+    total_price DECIMAL(10, 2),
+    subtotal_price DECIMAL(10, 2),
+    total_tax DECIMAL(10, 2),
+    applied_discount_description VARCHAR(255),
+    applied_discount_value DECIMAL(10, 2),
+    applied_discount_title VARCHAR(255),
+    applied_discount_amount DECIMAL(10, 2),
+    applied_discount_value_type VARCHAR(255),
+    admin_graphql_api_id VARCHAR(255),
+    FOREIGN KEY (order_id) REFERENCES order_table(id),  -- Adjust 'order_table' to your actual order table name
+    line_items JSONB,
+    shipping_address JSONB,
+    billing_address JSONB,
+    shipping_line_title VARCHAR(255),
+    shipping_line_custom BOOLEAN,
+    shipping_line_handle VARCHAR(255),
+    shipping_line_price DECIMAL(10, 2),
+    tax_lines JSONB,
+    tags VARCHAR(255),
+    note_attributes JSONB,
+    payment_terms VARCHAR(255),
+    customer_id INT,
+    FOREIGN KEY (customer_id) REFERENCES customer(id),
+    shipping_method_id INT,
+    FOREIGN KEY (shipping_method_id) REFERENCES shipping_method(id)
+);
+
+
+CREATE TABLE IF NOT EXISTS orders (
+    id BIGINT NOT NULL,
+    name VARCHAR(10) NOT NULL,
+    total_price DECIMAL(10, 2),
+    PRIMARY KEY(id)
+);
+
+CREATE TABLE IF NOT EXISTS line_items (
+    id BIGINT NOT NULL,
+    order_id BIGINT NOT NULL,
+    fulfillment_service VARCHAR(20),
+    gift_card BOOLEAN,
+    grams INT,
+    line_item_name VARCHAR(100),
+    price DECIMAL(10, 2),
+    product_exists BOOLEAN,
+    product_id BIGINT,
+    quantity INT,
+    requires_shipping BOOLEAN,
+    sku VARCHAR(20),
+    taxable BOOLEAN,
+    title VARCHAR(100),
+    total_discount DECIMAL(10, 2),
+    variant_id BIGINT,
+    variant_inventory_management VARCHAR(20),
+    variant_title VARCHAR(20),
+    vendor VARCHAR(50),
+    PRIMARY KEY(id),
+    FOREIGN KEY(order_id) REFERENCES orders(id)
+);
+
+CREATE TABLE IF NOT EXISTS line_item_properties (
+    line_item_id BIGINT NOT NULL,
+    property_name VARCHAR(50),
+    property_value VARCHAR(50),
+    PRIMARY KEY(line_item_id, property_name, property_value),
+    FOREIGN KEY(line_item_id) REFERENCES line_items(id)
+);
+
+CREATE TABLE IF NOT EXISTS tax_lines (
+    line_item_id BIGINT NOT NULL,
+    channel_liable VARCHAR(20),
+    tax_price DECIMAL(10, 2),
+    tax_rate DECIMAL(5, 2),
+    tax_title VARCHAR(20),
+    PRIMARY KEY(line_item_id),
+    FOREIGN KEY(line_item_id) REFERENCES line_items(id)
+);
+
+CREATE TABLE IF NOT EXISTS discount_allocations (
+    line_item_id BIGINT NOT NULL,
+    discount_amount DECIMAL(10, 2),
+    PRIMARY KEY(line_item_id),
+    FOREIGN KEY(line_item_id) REFERENCES line_items(id)
+);
+
+
+CREATE TABLE IF NOT EXISTS risks (
+    id BIGINT NOT NULL,
+    order_id BIGINT NOT NULL,
+    checkout_id BIGINT,
+    source VARCHAR(20),
+    score DECIMAL(3, 2),
+    recommendation VARCHAR(10),
+    display BOOLEAN,
+    cause_cancel BOOLEAN,
+    message VARCHAR(255),
+    merchant_message VARCHAR(255),
+    PRIMARY KEY(id),
+    FOREIGN KEY(order_id) REFERENCES orders(id),
+    FOREIGN KEY(checkout_id) REFERENCES checkouts(id)
+);
+
+CREATE TABLE IF NOT EXISTS order_transactions (
+    id BIGINT NOT NULL,
+    order_id BIGINT NOT NULL,
+    kind VARCHAR(20),
+    gateway VARCHAR(50),
+    status VARCHAR(20),
+    message VARCHAR(255),
+    created_at TIMESTAMPTZ,
+    test BOOLEAN,
+    authorization VARCHAR(50),
+    location_id BIGINT,
+    user_id BIGINT,
+    parent_id BIGINT,
+    processed_at TIMESTAMPTZ,
+    device_id BIGINT,
+    error_code VARCHAR(50),
+    source_name VARCHAR(20),
+    receipt JSONB,
+    currency_exchange_adjustment DECIMAL,
+    amount DECIMAL,
+    currency VARCHAR(10),
+    payment_id VARCHAR(20),
+    total_unsettled_set JSONB,
+    PRIMARY KEY(id),
+    FOREIGN KEY(order_id) REFERENCES orders(id)
+);
+
+
+
+CREATE TABLE IF NOT EXISTS refunds (
+    id BIGINT NOT NULL,
+    order_id BIGINT NOT NULL,
+    created_at TIMESTAMPTZ,
+    note VARCHAR(255),
+    user_id BIGINT,
+    processed_at TIMESTAMPTZ,
+    restock BOOLEAN,
+    total_duties_set JSONB,
+    total_additional_fees_set JSONB,
+    return JSONB,
+    admin_graphql_api_id VARCHAR(255),
+    PRIMARY KEY(id),
+    FOREIGN KEY(order_id) REFERENCES orders(id)
+);
+
+CREATE TABLE IF NOT EXISTS refund_line_items (
+    id BIGINT NOT NULL,
+    refund_id BIGINT NOT NULL,
+    quantity INT,
+    line_item_id BIGINT,
+    location_id BIGINT,
+    restock_type VARCHAR(50),
+    subtotal DECIMAL,
+    total_tax DECIMAL,
+    subtotal_set JSONB,
+    total_tax_set JSONB,
+    duties JSONB,
+    admin_graphql_api_id VARCHAR(255),
+    PRIMARY KEY(id),
+    FOREIGN KEY(refund_id) REFERENCES refunds(id)
+);
+
+CREATE TABLE IF NOT EXISTS refund_transaction (
+    id BIGINT NOT NULL,
+    refund_id BIGINT NOT NULL,
+    kind VARCHAR(20),
+    gateway VARCHAR(50),
+    status VARCHAR(20),
+    message VARCHAR(255),
+    created_at TIMESTAMPTZ,
+    test BOOLEAN,
+    authorization VARCHAR(50),
+    location_id BIGINT,
+    user_id BIGINT,
+    parent_id BIGINT,
+    processed_at TIMESTAMPTZ,
+    device_id BIGINT,
+    error_code VARCHAR(50),
+    source_name VARCHAR(20),
+    receipt JSONB,
+    currency DECIMAL,
+    amount DECIMAL,
+    payment_id VARCHAR(20),
+    total_unsettled_set JSONB,
+    admin_graphql_api_id VARCHAR(255),
+    PRIMARY KEY(id),
+    FOREIGN KEY(refund_id) REFERENCES refunds(id)
+);
+
+
+
+CREATE TABLE IF NOT EXISTS users (
+    id BIGINT NOT NULL,
+    first_name VARCHAR(255),
+    email VARCHAR(255) NOT NULL,
+    url VARCHAR(255),
+    im VARCHAR(255),
+    screen_name VARCHAR(255),
+    phone VARCHAR(20),
+    last_name VARCHAR(255),
+    account_owner BOOLEAN,
+    receive_announcements BOOLEAN,
+    bio TEXT,
+    locale VARCHAR(10),
+    user_type VARCHAR(20),
+    admin_graphql_api_id VARCHAR(255),
+    tfa_enabled BOOLEAN,
+    PRIMARY KEY(id)
+);
+
+CREATE TABLE IF NOT EXISTS user_permissions (
+    user_id BIGINT NOT NULL,
+    permission VARCHAR(255) NOT NULL,
+    FOREIGN KEY(user_id) REFERENCES users(id)
+);
+
+
+CREATE TABLE IF NOT EXISTS collects (
+    id BIGINT NOT NULL,
+    collection_id BIGINT NOT NULL,
+    product_id BIGINT NOT NULL,
+    created_at TIMESTAMP,
+    updated_at TIMESTAMP,
+    position INTEGER,
+    sort_value VARCHAR(20),
+    PRIMARY KEY (id),
+    FOREIGN KEY (collection_id) REFERENCES collections(id),
+    FOREIGN KEY (product_id) REFERENCES products(id)
+);
+
+
+-- Create 'products' table
+CREATE TABLE IF NOT EXISTS products (
+    id BIGINT NOT NULL,
+    title VARCHAR(255) NOT NULL,
+    body_html TEXT,
+    vendor VARCHAR(255),
+    product_type VARCHAR(255),
+    created_at TIMESTAMP,
+    handle VARCHAR(255) NOT NULL,
+    updated_at TIMESTAMP,
+    published_at TIMESTAMP,
+    template_suffix VARCHAR(255),
+    published_scope VARCHAR(50),
+    tags TEXT,
+    status VARCHAR(50),
+    admin_graphql_api_id VARCHAR(255) NOT NULL,
+    PRIMARY KEY (id)
+);
+
+-- Create 'variants' table
+CREATE TABLE IF NOT EXISTS variants (
+    id BIGINT NOT NULL,
+    product_id BIGINT NOT NULL,
+    title VARCHAR(255),
+    price DECIMAL(10, 2) NOT NULL,
+    sku VARCHAR(255),
+    position INTEGER,
+    inventory_policy VARCHAR(50),
+    compare_at_price DECIMAL(10, 2),
+    fulfillment_service VARCHAR(255),
+    inventory_management VARCHAR(255),
+    option1 VARCHAR(255),
+    option2 VARCHAR(255),
+    option3 VARCHAR(255),
+    created_at TIMESTAMP,
+    updated_at TIMESTAMP,
+    taxable BOOLEAN,
+    barcode VARCHAR(255),
+    grams INTEGER,
+    image_id BIGINT,
+    weight DECIMAL(10, 2),
+    weight_unit VARCHAR(10),
+    inventory_item_id BIGINT,
+    inventory_quantity INTEGER,
+    old_inventory_quantity INTEGER,
+    requires_shipping BOOLEAN,
+    admin_graphql_api_id VARCHAR(255) NOT NULL,
+    PRIMARY KEY (id),
+    FOREIGN KEY (product_id) REFERENCES products(id),
+    FOREIGN KEY (image_id) REFERENCES p_images(id) 
+);
+
+
+
+
+CREATE TABLE IF NOT EXISTS options (
+    id BIGINT NOT NULL,
+    product_id BIGINT NOT NULL,
+    name VARCHAR(255),
+    position INTEGER,
+    PRIMARY KEY (id),
+    FOREIGN KEY (product_id) REFERENCES products(id)
+);
+
+
+CREATE TABLE IF NOT EXISTS option_values (
+    id BIGINT NOT NULL,
+    option_id BIGINT NOT NULL,
+    value VARCHAR(255),
+    position INTEGER,
+    PRIMARY KEY (id),
+    FOREIGN KEY (option_id) REFERENCES options(id)
+);
+
+CREATE TABLE IF NOT EXISTS p_images (
+    id BIGINT NOT NULL,
+    alt VARCHAR(255),
+    position INTEGER,
+    product_id BIGINT NOT NULL,
+    created_at TIMESTAMP,
+    updated_at TIMESTAMP,
+    admin_graphql_api_id VARCHAR(255) NOT NULL,
+    width INTEGER,
+    height INTEGER,
+    src VARCHAR(255),
+    PRIMARY KEY (id),
+    FOREIGN KEY (product_id) REFERENCES products(id)
+);
+
+
+CREATE TABLE sm_collections (
+    id INT PRIMARY KEY,
+    handle VARCHAR(255) UNIQUE,
+    title VARCHAR(255),
+    updated_at TIMESTAMP,
+    body_html TEXT,
+    published_at TIMESTAMP,
+    sort_order VARCHAR(50),
+    template_suffix VARCHAR(255),
+    products_count INT,
+    disjunctive BOOLEAN,
+    rules JSON, -- Assuming rules are stored as JSON
+    published_scope VARCHAR(50),
+    admin_graphql_api_id VARCHAR(255) UNIQUE,
+    image_id INT,
+    FOREIGN KEY (image_id) REFERENCES Images(id) -- Assuming you have an Images table
+);
+
+CREATE TABLE Checkout (
+    id VARCHAR(255) PRIMARY KEY,
+    completed_at TIMESTAMP,
+    created_at TIMESTAMP,
+    currency VARCHAR(3),
+    presentment_currency VARCHAR(3),
+    customer_id INT,
+    customer_locale VARCHAR(10),
+    device_id VARCHAR(255),
+    discount_code VARCHAR(255),
+    email VARCHAR(255),
+    legal_notice_url VARCHAR(255),
+    location_id INT,
+    name VARCHAR(255),
+    note TEXT,
+    order_id INT,
+    order_status_url VARCHAR(255),
+    payment_due DECIMAL(10, 2),
+    payment_url VARCHAR(255),
+    phone VARCHAR(20),
+    shopify_payments_account_id VARCHAR(255),
+    privacy_policy_url VARCHAR(255),
+    refund_policy_url VARCHAR(255),
+    requires_shipping BOOLEAN,
+    reservation_time_left INT,
+    reservation_time TIMESTAMP,
+    source_identifier VARCHAR(255),
+    source_name VARCHAR(255),
+    source_url VARCHAR(255),
+    subscription_policy_url VARCHAR(255),
+    subtotal_price DECIMAL(10, 2),
+    shipping_policy_url VARCHAR(255),
+    tax_exempt BOOLEAN,
+    taxes_included BOOLEAN,
+    terms_of_sale_url VARCHAR(255),
+    terms_of_service_url VARCHAR(255),
+    token VARCHAR(255),
+    total_price DECIMAL(10, 2),
+    total_tax DECIMAL(10, 2),
+    total_tip_received DECIMAL(10, 2),
+    total_line_items_price DECIMAL(10, 2),
+    updated_at TIMESTAMP,
+    user_id INT,
+    web_url VARCHAR(255),
+    total_duties DECIMAL(10, 2),
+    total_additional_fees DECIMAL(10, 2),
+    FOREIGN KEY (customer_id) REFERENCES Customers(id),
+    FOREIGN KEY (order_id) REFERENCES Orders(id)
+);
+
+CREATE TABLE mobile_platform_applications (
+    id INT PRIMARY KEY,
+    application_id VARCHAR(255),
+    platform VARCHAR(50),
+    created_at TIMESTAMP,
+    updated_at TIMESTAMP,
+    enabled_universal_or_app_links BOOLEAN,
+    enabled_shared_webcredentials BOOLEAN,
+    enabled_app_clips BOOLEAN,
+    app_clip_application_id VARCHAR(255),
+    sha256_cert_fingerprints VARCHAR(255)[] 
+);
+
+
+CREATE TABLE payments (
+    id INT PRIMARY KEY,
+    unique_token VARCHAR(255),
+    payment_processing_error_message VARCHAR(255),
+    amount DECIMAL(10, 2),
+    authorization VARCHAR(255),
+    created_at TIMESTAMP,
+    currency VARCHAR(3),
+    status VARCHAR(50),
+    test BOOLEAN
+);
+
+
+CREATE TABLE resource_feedback (
+    id SERIAL PRIMARY KEY,
+    created_at TIMESTAMP,
+    updated_at TIMESTAMP,
+    resource_id INT,
+    resource_type VARCHAR(50),
+    resource_updated_at TIMESTAMP,
+    feedback_generated_at TIMESTAMP,
+    state VARCHAR(50),
+    PRIMARY KEY (id, resource_id)
+);
+
+CREATE TABLE feedback_messages (
+    id SERIAL PRIMARY KEY,
+    feedback_id INT,
+    message_text TEXT,
+    PRIMARY KEY (id, feedback_id)
+);
+
+
+CREATE TABLE product_listing (
+    product_id INT PRIMARY KEY,
+    created_at TIMESTAMP,
+    updated_at TIMESTAMP,
+    body_html TEXT,
+    handle VARCHAR(255),
+    product_type VARCHAR(255),
+    title VARCHAR(255),
+    vendor VARCHAR(255),
+    available BOOLEAN,
+    tags TEXT,
+    published_at TIMESTAMP
+);
+
+CREATE TABLE price_variants (
+    id INT PRIMARY KEY,
+    product_id INT,
+    title VARCHAR(255),
+    price DECIMAL(10, 2),
+    formatted_price VARCHAR(20),
+    compare_at_price DECIMAL(10, 2),
+    grams INT,
+    requires_shipping BOOLEAN,
+    sku VARCHAR(255),
+    barcode VARCHAR(255),
+    taxable BOOLEAN,
+    position INT,
+    available BOOLEAN,
+    inventory_policy VARCHAR(255),
+    inventory_quantity INT,
+    inventory_management VARCHAR(255),
+    fulfillment_service VARCHAR(255),
+    weight DECIMAL(10, 2),
+    weight_unit VARCHAR(10),
+    image_id INT,
+    created_at TIMESTAMP,
+    updated_at TIMESTAMP,
+    FOREIGN KEY (product_id) REFERENCES product_listing(product_id)
+);
+
+CREATE TABLE option_values (
+    option_id INT,
+    variant_id INT,
+    name VARCHAR(255),
+    value VARCHAR(255),
+    PRIMARY KEY (option_id, variant_id),
+    FOREIGN KEY (variant_id) REFERENCES variants(id)
+);
+
+CREATE TABLE options (
+    id INT PRIMARY KEY,
+    name VARCHAR(255),
+    product_id INT,
+    position INT,
+    FOREIGN KEY (product_id) REFERENCES product_listing(product_id)
+);
+
+
+-----------------------------------------------------------------------------------------------
+
+
+CREATE TABLE fulfillment_orders (
+    id INT PRIMARY KEY,
+    shop_id INT,
+    order_id INT,
+    assigned_location_id INT,
+    request_status VARCHAR(255),
+    status VARCHAR(255),
+    supported_actions TEXT[],
+    fulfillment_service_handle VARCHAR(255),
+    FOREIGN KEY (assigned_location_id) REFERENCES assigned_location(location_id)
+);
+
+CREATE TABLE destination (
+    id INT PRIMARY KEY,
+    fulfillment_order_id INT,
+    address1 VARCHAR(255),
+    address2 VARCHAR(255),
+    city VARCHAR(255),
+    company VARCHAR(255),
+    country VARCHAR(255),
+    email VARCHAR(255),
+    first_name VARCHAR(255),
+    last_name VARCHAR(255),
+    phone VARCHAR(255),
+    province VARCHAR(255),
+    zip VARCHAR(255),
+    FOREIGN KEY (fulfillment_order_id) REFERENCES fulfillment_orders(id)
+);
+
+CREATE TABLE line_items (
+    id INT PRIMARY KEY,
+    shop_id INT,
+    fulfillment_order_id INT,
+    quantity INT,
+    line_item_id INT,
+    inventory_item_id INT,
+    fulfillable_quantity INT,
+    variant_id INT,
+    FOREIGN KEY (fulfillment_order_id) REFERENCES fulfillment_orders(id)
+);
+
+CREATE TABLE assigned_location (
+    location_id INT PRIMARY KEY,
+    address1 VARCHAR(255),
+    address2 VARCHAR(255),
+    city VARCHAR(255),
+    country_code VARCHAR(255),
+    name VARCHAR(255),
+    phone VARCHAR(255),
+    province VARCHAR(255),
+    zip VARCHAR(255)
+);
+
+------------------------------------------------------------
+
+CREATE TABLE carrier_services (
+    id INT PRIMARY KEY,
+    name VARCHAR(255),
+    active BOOLEAN,
+    service_discovery BOOLEAN,
+    carrier_service_type VARCHAR(255),
+    admin_graphql_api_id VARCHAR(255),
+    format VARCHAR(255),
+    callback_url VARCHAR(255)
+);
+
+
+CREATE TABLE fulfillments (
+    id INT PRIMARY KEY,
+    order_id INT,
+    status VARCHAR(255),
+    created_at TIMESTAMP,
+    service VARCHAR(255),
+    updated_at TIMESTAMP,
+    tracking_company VARCHAR(255),
+    shipment_status VARCHAR(255),
+    location_id INT,
+    tracking_number VARCHAR(255),
+    tracking_url VARCHAR(255),
+    receipt TEXT,
+    name VARCHAR(255),
+    admin_graphql_api_id VARCHAR(255)
+);
+
+CREATE TABLE line_items (
+    id INT PRIMARY KEY,
+    fulfillment_id INT,
+    variant_id INT,
+    title VARCHAR(255),
+    quantity INT,
+    sku VARCHAR(255),
+    variant_title VARCHAR(255),
+    vendor VARCHAR(255),
+    fulfillment_service VARCHAR(255),
+    product_id INT,
+    requires_shipping BOOLEAN,
+    taxable BOOLEAN,
+    gift_card BOOLEAN,
+    name VARCHAR(255),
+    fulfillment_status VARCHAR(255),
+    price DECIMAL(10, 2),
+    total_discount DECIMAL(10, 2),
+    admin_graphql_api_id VARCHAR(255),
+    tracking_number VARCHAR(255),
+    FOREIGN KEY (fulfillment_id) REFERENCES fulfillments (id)
+);
+
+--------------------------------
+CREATE TABLE disputes (
+    id INT PRIMARY KEY,
+    order_id INT,
+    type VARCHAR(255),
+    amount DECIMAL(10, 2),
+    currency VARCHAR(3),
+    reason VARCHAR(255),
+    network_reason_code VARCHAR(10),
+    status VARCHAR(255),
+    evidence_due_by TIMESTAMP,
+    evidence_sent_on TIMESTAMP,
+    finalized_on TIMESTAMP,
+    initiated_at TIMESTAMP
+);
+
+
+CREATE TABLE rev_transactions (
+    id INT PRIMARY KEY,
+    type VARCHAR(255),
+    test BOOLEAN,
+    payout_id INT,
+    payout_status VARCHAR(255),
+    currency VARCHAR(3),
+    amount DECIMAL(10, 2),
+    fee DECIMAL(10, 2),
+    net DECIMAL(10, 2),
+    source_id INT,
+    source_type VARCHAR(255),
+    source_order_id INT,
+    source_order_transaction_id INT,
+    processed_at TIMESTAMP
+);
+
+CREATE TABLE shop (
+    id INT PRIMARY KEY,
+    name VARCHAR(255),
+    email VARCHAR(255),
+    domain VARCHAR(255),
+    province VARCHAR(255),
+    country VARCHAR(255),
+    address1 VARCHAR(255),
+    zip VARCHAR(20),
+    city VARCHAR(255),
+    source VARCHAR(255),
+    phone VARCHAR(20),
+    latitude DECIMAL(10, 6),
+    longitude DECIMAL(10, 6),
+    primary_locale VARCHAR(10),
+    address2 VARCHAR(255),
+    created_at TIMESTAMP,
+    updated_at TIMESTAMP,
+    country_code VARCHAR(5),
+    country_name VARCHAR(255),
+    currency VARCHAR(5),
+    customer_email VARCHAR(255),
+    timezone VARCHAR(255),
+    iana_timezone VARCHAR(255),
+    shop_owner VARCHAR(255),
+    money_format VARCHAR(20),
+    money_with_currency_format VARCHAR(255),
+    weight_unit VARCHAR(10),
+    province_code VARCHAR(10),
+    taxes_included BOOLEAN,
+    auto_configure_tax_inclusivity BOOLEAN,
+    tax_shipping BOOLEAN,
+    county_taxes BOOLEAN,
+    plan_display_name VARCHAR(255),
+    plan_name VARCHAR(255),
+    has_discounts BOOLEAN,
+    has_gift_cards BOOLEAN,
+    myshopify_domain VARCHAR(255),
+    google_apps_domain VARCHAR(255),
+    google_apps_login_enabled BOOLEAN,
+    money_in_emails_format VARCHAR(20),
+    money_with_currency_in_emails_format VARCHAR(255),
+    eligible_for_payments BOOLEAN,
+    requires_extra_payments_agreement BOOLEAN,
+    password_enabled BOOLEAN,
+    has_storefront BOOLEAN,
+    finances BOOLEAN,
+    primary_location_id INT,
+    checkout_api_supported BOOLEAN,
+    multi_location_enabled BOOLEAN,
+    setup_required BOOLEAN,
+    pre_launch_enabled BOOLEAN,
+    enabled_presentment_currencies JSONB,
+    transactional_sms_disabled BOOLEAN,
+    marketing_sms_consent_enabled_at_checkout BOOLEAN
+);
+
+CREATE TABLE tender_transaction (
+    id INT PRIMARY KEY,
+    order_id INT,
+    amount DECIMAL(10, 2),
+    currency VARCHAR(5),
+    user_id INT,
+    test BOOLEAN,
+    processed_at TIMESTAMP,
+    remote_reference VARCHAR(255),
+    payment_details JSONB,
+    payment_method VARCHAR(20)
+);
+
+
