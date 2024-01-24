@@ -75,3 +75,10 @@ https://www.javatpoint.com/spring-boot-multi-module-project
 //	                .setParameter(2, domain)
 //	                .executeUpdate();
 //	    }
+
+
+User registers with a custom domain.
+Application creates a separate database and stores user details.
+During login, subdomain-based authentication ensures the user is authenticated based on the subdomain.
+Controllers use subdomain information for dynamic content retrieval from the subdomain-specific database.
+DNS configuration redirects subdomains to the application, completing the end-to-end process.
