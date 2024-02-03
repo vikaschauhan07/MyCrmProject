@@ -76,9 +76,44 @@ https://www.javatpoint.com/spring-boot-multi-module-project
 //	                .executeUpdate();
 //	    }
 
-
+---------------------------------------------------------------------------------------------------
 User registers with a custom domain.
 Application creates a separate database and stores user details.
 During login, subdomain-based authentication ensures the user is authenticated based on the subdomain.
 Controllers use subdomain information for dynamic content retrieval from the subdomain-specific database.
 DNS configuration redirects subdomains to the application, completing the end-to-end process.
+
+
+#spring.datasource.url=jdbc:mysql://localhost:3306/java
+#spring.datasource.username=root
+#spring.datasource.password=Mrdhara@123
+#spring.datasource.driver-class-name=com.mysql.cj.jdbc.Driver
+#
+#spring.jpa.hibernate.ddl-auto=update
+#spring.jpa.show-sql=false
+#spring.jpa.properties.hibernate.format_sql=true
+#spring.jpa.database=mysql
+#spring.jpa.database-platform=org.hibernate.dialect.MySQLDialect
+
+spring.datasource.url=jdbc:postgresql://localhost:5432/mycrm
+spring.datasource.username=postgres
+spring.datasource.password=Welcome@123
+spring.datasource.driver-class-name=org.postgresql.Driver
+
+spring.jpa.hibernate.ddl-auto=update
+spring.jpa.show-sql=false
+spring.jpa.properties.hibernate.format_sql=true
+spring.jpa.database=postgresql
+spring.jpa.database-platform=org.hibernate.dialect.PostgreSQLDialect
+
+
+application.security.jwt.secret-key=404E635266556A586E3272357538782F413F4428472B4B6250645367566B5970
+application.security.jwt.expiration=86400000
+application.security.jwt.refresh-token.expiration=604800000
+
+--------------------------------------------------------------------------------------------------------
+Shared Database and Separate Schema
+In this approach, each tenant’s data is kept in a distinct schema on a shared database. This is sometimes called Schema per Tenant:separate schema
+
+
+
