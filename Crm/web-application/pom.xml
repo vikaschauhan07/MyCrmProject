@@ -8,46 +8,36 @@
 		<artifactId>Crm</artifactId>
 		<version>0.0.1-SNAPSHOT</version>
 	</parent>
-	<groupId>crm</groupId>
-	<artifactId>web-application</artifactId>
+	<artifactId>Crm.application</artifactId>
 	<name>web-application</name>
 	<description>Demo project for Spring Boot</description>
-	<properties>
-		<java.version>17</java.version>
-	</properties>
 	<packaging>jar</packaging>
 	<dependencies>
 		<dependency>
-			<groupId>org.springframework.boot</groupId>
-			<artifactId>spring-boot-starter-web</artifactId>
-		</dependency>
-
-		<dependency>
-			<groupId>org.springframework.boot</groupId>
-			<artifactId>spring-boot-starter-test</artifactId>
-			<scope>test</scope>
-		</dependency>
-
-		<dependency>
 			<groupId>crm</groupId>
-			<artifactId>model-module</artifactId>
-			<version>0.0.1-SNAPSHOT</version>
+			<artifactId>Crm.service</artifactId>
+			<version>${project.version}</version>
 		</dependency>
 
-		<dependency>
-			<groupId>crm</groupId>
-			<artifactId>service-module</artifactId>
-			<version>0.0.1-SNAPSHOT</version>
-		</dependency>
+<!--		<dependency>-->
+<!--			<groupId>org.apache.tomcat.embed</groupId>-->
+<!--			<artifactId>tomcat-embed-jasper</artifactId>-->
+<!--			<scope>provided</scope>-->
+<!--		</dependency>-->
+<!--		<dependency>-->
+<!--			<groupId>org.springframework.boot</groupId>-->
+<!--			<artifactId>spring-boot-starter-web</artifactId>-->
+<!--		</dependency>-->
+<!--		<dependency>-->
+<!--			<groupId>org.springframework.boot</groupId>-->
+<!--			<artifactId>spring-boot-starter-thymeleaf</artifactId>-->
+<!--		</dependency>-->
 
-		<dependency>
-			<groupId>org.springframework.boot</groupId>
-			<artifactId>spring-boot-starter-actuator</artifactId>
-		</dependency>
 	</dependencies>
 
 	<build>
 		<plugins>
+			<!-- Spring Boot plugins -->
 			<plugin>
 				<groupId>org.springframework.boot</groupId>
 				<artifactId>spring-boot-maven-plugin</artifactId>

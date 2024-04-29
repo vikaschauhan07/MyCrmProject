@@ -1,5 +1,0 @@
-# Created at 2023-10-10T00:48:05.323
-Boot Manifest-JAR contains absolute paths in classpath 'D:\MyCrm_Project\MyCrm2\MyCrmProject\Crm\service-module\target\test-classes'
-Hint: <argLine>-Djdk.net.URLClassPath.disableClassPathURLCheck=true</argLine>
-'other' has different root
-
